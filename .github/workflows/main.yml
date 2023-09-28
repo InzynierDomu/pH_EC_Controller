@@ -28,7 +28,7 @@ jobs:
           pip install --upgrade platformio
 
       - name: Run PlatformIO
-        run: pio run -e nanoatmega328_lcd
+        run: pio run -e nanoatmega328
 
       - name: Install native
         run: pio platform install native
