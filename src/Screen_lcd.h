@@ -5,7 +5,6 @@
  * @date 2022-08
  */
 #pragma once
-#if defined LCD_SCREEN
 
 #include "Config.h"
 #include "IScreen.h"
@@ -31,4 +30,3 @@ class Screen_lcd : public IScreen
   private:
   LiquidCrystal_I2C m_display; ///< HD44780 via PCF8574
 };
-#endif

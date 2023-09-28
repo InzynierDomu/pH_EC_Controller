@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Screen_lcd.h"
-#include "Screen_oled.h"
 
 #include <stdint.h>
 
@@ -28,9 +27,5 @@ class Data_presentation
   void display_change_ph_range(const double sample, uint8_t position);
 
   private:
-#if defined LCD_SCREEN
   Screen_lcd m_display; ///< lcd screen
-#else
-  Screen_oled m_display; ///< oled screen
-#endif
 };

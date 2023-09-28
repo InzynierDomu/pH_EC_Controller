@@ -9,7 +9,6 @@
 /**
  * @brief constructor
  */
-#if defined LCD_SCREEN
 Screen_lcd::Screen_lcd()
 : m_display(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE)
 {}
@@ -210,5 +209,3 @@ void Screen_lcd::display_fill_ec()
   m_display.setCursor(0, 0);
   m_display.print("filling ec");
 }
-
-#endif
