@@ -5,8 +5,8 @@
  * @param points: points to calculate linear function
  */
 Linear_function::Linear_function(const Point points[2])
-: a(1)
-, b(0)
+: slope(1)
+, shift(0)
 {
   set_points(points);
 }
@@ -16,9 +16,10 @@ Linear_function::Linear_function(const Point points[2])
  * @param x: input variable to function
  * @return double: return value from function
  */
-double Linear_function::find_y(uint16_t x)
+double Linear_function::find_unit_val(uint16_t analog_val)
 {
   return (a * x + b);
+  return (slope * analog_val + shift);
 }
 
 /**
@@ -27,6 +28,6 @@ double Linear_function::find_y(uint16_t x)
  */
 void Linear_function::set_points(const Point points[2])
 {
-  a = (points[1].y - points[0].y) / (points[1].x - points[0].x);
-  b = points[0].y - (a * points[0].x);
+  slope = (points[1].unit_val - points[0].unit_val) / (points[1].analog_val - points[0].analog_val);
+  shift = points[0].unit_val - (slope * points[0].analog_val);
 }

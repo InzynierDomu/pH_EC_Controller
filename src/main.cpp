@@ -82,7 +82,7 @@ void measurements_ph(const Buttons_action action)
   digitalWrite(Config::ec_supply_pin_probe, LOW);
   delay(50);
   int analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_y(analog_mes);
+  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
   m_data_presentation.presentation_measurements_ph(temperature, ph);
 
@@ -90,7 +90,7 @@ void measurements_ph(const Buttons_action action)
   digitalWrite(Config::ec_supply_pin_probe, HIGH);
   delay(50);
   analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_y(analog_mes);
+  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
 
   if (m_automation.check_ec_value(ec))
   {
@@ -149,13 +149,13 @@ void measurements_ec(const Buttons_action action)
   digitalWrite(Config::ec_supply_pin_probe, HIGH);
   delay(50);
   int analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_y(analog_mes);
+  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
 
   digitalWrite(Config::ph_supply_pin_probe, HIGH);
   digitalWrite(Config::ec_supply_pin_probe, LOW);
   delay(50);
   analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_y(analog_mes);
+  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
   m_data_presentation.presentation_measurements_ec(temperature, ec);
 
@@ -446,7 +446,7 @@ void change_ec_range(const Buttons_action action)
 void fill_ph()
 {
   int analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_y(analog_mes);
+  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
   if (!m_automation.check_ph_value(ph))
   {
@@ -458,7 +458,7 @@ void fill_ph()
 void fill_ec()
 {
   int analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_y(analog_mes);
+  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
 
   if (!m_automation.check_ec_value(ec))
   {

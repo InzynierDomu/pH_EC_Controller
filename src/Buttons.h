@@ -20,6 +20,7 @@ enum class Buttons_action
   right_pressed
 };
 
+/// @brief buttons action handling
 class Buttons
 {
   public:
