@@ -32,5 +32,5 @@ class Linear_function
 
   private:
   double slope;
-  double shift
+  double shift;
 };
