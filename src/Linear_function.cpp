@@ -13,12 +13,11 @@ Linear_function::Linear_function(const Point points[2])
 
 /**
  * @brief find point on linear function
- * @param x: input variable to function
+ * @param analog_val: input variable to function
  * @return double: return value from function
  */
 double Linear_function::find_unit_val(uint16_t analog_val)
 {
-  return (a * x + b);
   return (slope * analog_val + shift);
 }
 

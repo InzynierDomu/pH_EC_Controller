@@ -213,14 +213,14 @@ void measurements_ec(const Buttons_action action)
 bool save_sample(Point* samples, double sample)
 {
   static int sample_counter = 0;
-  samples[sample_counter].x = sample;
+  samples[sample_counter].unit_val = sample;
   switch (m_device_state)
   {
     case Device_state::calibration_ph:
-      samples[sample_counter].y = analogRead(Config::ph_pin_probe);
+      samples[sample_counter].analog_val = analogRead(Config::ph_pin_probe);
       break;
     case Device_state::calibration_ec:
-      samples[sample_counter].y = analogRead(Config::ec_pin_probe);
+      samples[sample_counter].analog_val = analogRead(Config::ec_pin_probe);
       break;
     default:
       break;
@@ -443,10 +443,15 @@ void change_ec_range(const Buttons_action action)
   }
 }
 
+/**
+ * @brief turn on increasing ph until the expected value is obtained state
+ */
 void fill_ph()
 {
   int analog_mes = analogRead(Config::ph_pin_probe);
   float ph = ph_probe_characteristic.find_unit_val(analog_mes);
+  // TODO: implicit conversion float - double
+  // TODO: add presentation
 
   if (!m_automation.check_ph_value(ph))
   {
@@ -455,10 +460,15 @@ void fill_ph()
   }
 }
 
+/**
+ * @brief turn on increasing ec until the expected value is obtained state
+ */
 void fill_ec()
 {
   int analog_mes = analogRead(Config::ec_pin_probe);
   float ec = ec_probe_characteristic.find_unit_val(analog_mes);
+  // TODO: implicit conversion float - double
+  // TODO: add presentation
 
   if (!m_automation.check_ec_value(ec))
   {
@@ -489,23 +499,23 @@ void setup()
   m_memory.load_ph_calibration(points);
   Serial.println("Calibration:");
   Serial.print("ph: p1_x:");
-  Serial.print(points[0].x);
+  Serial.print(points[0].unit_val);
   Serial.print(" p1_y:");
-  Serial.print(points[0].y);
+  Serial.print(points[0].analog_val);
   Serial.print(" p2_x:");
-  Serial.print(points[1].x);
+  Serial.print(points[1].unit_val);
   Serial.print(" p2_y:");
-  Serial.println(points[1].y);
+  Serial.println(points[1].analog_val);
   ph_probe_characteristic.set_points(points);
   m_memory.load_ec_calibration(points);
   Serial.print("ec: p1_x:");
-  Serial.print(points[0].x);
+  Serial.print(points[0].unit_val);
   Serial.print(" p1_y:");
-  Serial.print(points[0].y);
+  Serial.print(points[0].analog_val);
   Serial.print(" p2_x:");
-  Serial.print(points[1].x);
+  Serial.print(points[1].unit_val);
   Serial.print(" p2_y:");
-  Serial.println(points[1].y);
+  Serial.println(points[1].analog_val);
   ec_probe_characteristic.set_points(points);
 
   m_up_button_pressed = false;
