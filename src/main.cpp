@@ -60,6 +60,7 @@ void ds_thermometer_init()
   m_one_wire.reset_search();
   while (m_one_wire.search(m_ds_address))
   {
+    // TODO: remove magic number
     if (m_ds_address[0] != 0x28)
       continue;
 
@@ -448,10 +449,10 @@ void change_ec_range(const Buttons_action action)
  */
 void fill_ph()
 {
-  int analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
-  // TODO: implicit conversion float - double
-  // TODO: add presentation
+  auto temperature = m_ds_sensor.getTempC();
+  auto analog_mes = analogRead(Config::ph_pin_probe);
+  auto ph = ph_probe_characteristic.find_unit_val(analog_mes);
+  m_data_presentation.presentation_measurements_ph(temperature, ph);
 
   if (!m_automation.check_ph_value(ph))
   {
@@ -465,10 +466,10 @@ void fill_ph()
  */
 void fill_ec()
 {
-  int analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
-  // TODO: implicit conversion float - double
-  // TODO: add presentation
+  auto temperature = m_ds_sensor.getTempC();
+  auto analog_mes = analogRead(Config::ec_pin_probe);
+  auto ec = ec_probe_characteristic.find_unit_val(analog_mes);
+  m_data_presentation.presentation_measurements_ec(temperature, ec);
 
   if (!m_automation.check_ec_value(ec))
   {
