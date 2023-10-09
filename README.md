@@ -8,15 +8,14 @@
 <a href="https://tipo.live/p/inzynierdomu">![support](https://img.shields.io/badge/support-tipo.live-yellow?style=flat-square)</a>
 
 - [pH\_EC\_Controller](#ph_ec_controller)
-  - [DEscription](#description)
+  - [Description](#description)
   - [Scheme](#scheme)
     - [Part list](#part-list)
   - [IDE](#ide)
 
-## DEscription
+## Description
 
-TBD 
-
+This is a more advanced version of the pH EC meter. Performing pH and EC measurements then turns on/off the relays depending on the level of measurements. It is used to automate the process of stabilization the target value pH and EC.
 ## Scheme
 
 TBD
