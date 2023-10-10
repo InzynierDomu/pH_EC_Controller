@@ -25,7 +25,7 @@ void Data_presentation::init()
 {
   Serial.begin(9600);
 
-  m_display.display_start();
+  m_display.startup();
   delay(1000);
 }
 
@@ -34,7 +34,7 @@ void Data_presentation::init()
  */
 void Data_presentation::display_calib_mode()
 {
-  m_display.display_calib_mode();
+  m_display.calib_mode();
   delay(500);
 }
 
@@ -43,7 +43,7 @@ void Data_presentation::display_calib_mode()
  */
 void Data_presentation::display_range_mode()
 {
-  m_display.display_range_mode();
+  m_display.range_mode();
   delay(500);
 }
 
@@ -52,18 +52,8 @@ void Data_presentation::display_range_mode()
  */
 void Data_presentation::display_save_data()
 {
-  m_display.display_save_data();
+  m_display.save_data();
   delay(500);
-}
-
-void Data_presentation::display_fill_ph_mode()
-{
-  m_display.display_fill_ph();
-}
-
-void Data_presentation::display_fill_ec_mode()
-{
-  m_display.display_fill_ec();
 }
 
 /**
@@ -71,15 +61,16 @@ void Data_presentation::display_fill_ec_mode()
  * @param temperature: temperature value to send and print
  * @param ph: ph value to send and print
  */
-void Data_presentation::presentation_measurements_ph(const float temperature, const float ph)
+void Data_presentation::presentation_measurements_ph(const float temperature, const float ph, const bool relay_state)
 {
   Serial.print("temperature:");
   Serial.print(temperature);
-  Serial.print(",");
-  Serial.print(";pH:");
-  Serial.println(ph);
+  Serial.print("'C ;pH:");
+  Serial.print(ph);
+  Serial.print("; relay:");
+  Serial.println(relay_state);
 
-  m_display.display_ph(temperature, ph);
+  m_display.measurements_ph(temperature, ph, relay_state);
 }
 
 /**
@@ -87,15 +78,16 @@ void Data_presentation::presentation_measurements_ph(const float temperature, co
  * @param temperature: temperature value to send and print
  * @param ph: ec value to send and print
  */
-void Data_presentation::presentation_measurements_ec(const float temperature, const float ec)
+void Data_presentation::presentation_measurements_ec(const float temperature, const float ec, const bool relay_state)
 {
   Serial.print("temperature:");
   Serial.print(temperature);
-  Serial.print(",");
-  Serial.print(";EC:");
-  Serial.println(ec);
+  Serial.print("'C ;EC:");
+  Serial.print(ec);
+  Serial.print("; relay:");
+  Serial.println(relay_state);
 
-  m_display.display_ec(temperature, ec);
+  m_display.measurements_ec(temperature, ec, relay_state);
 }
 
 /**
@@ -105,7 +97,7 @@ void Data_presentation::presentation_measurements_ec(const float temperature, co
  */
 void Data_presentation::display_calibration_ph(const uint8_t sample, const float temperature)
 {
-  m_display.display_calibration_ph(sample, temperature);
+  m_display.calibration_ph(sample, temperature);
 }
 
 /**
@@ -116,10 +108,10 @@ void Data_presentation::display_calibration_ph(const uint8_t sample, const float
  */
 void Data_presentation::display_calibration_ec(const double sample, uint8_t position, const float temperature)
 {
-  m_display.display_calibration_ec(sample, position, temperature);
+  m_display.calibration_ec(sample, position, temperature);
 }
 
 void Data_presentation::display_change_ph_range(const double sample, uint8_t position)
 {
-  m_display.display_change_ph_range(sample, position);
+  m_display.change_ph_range(sample, position);
 }

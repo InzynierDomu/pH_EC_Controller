@@ -9,7 +9,6 @@
 #include "Screen_lcd.h"
 
 #include <stdint.h>
-
 class Data_presentation
 {
   public:
@@ -18,10 +17,8 @@ class Data_presentation
   void display_calib_mode();
   void display_range_mode();
   void display_save_data();
-  void display_fill_ph_mode();
-  void display_fill_ec_mode();
-  void presentation_measurements_ph(const float temperature, const float ph);
-  void presentation_measurements_ec(const float temperature, const float ec);
+  void presentation_measurements_ph(const float temperature, const float ph, const bool relay_state);
+  void presentation_measurements_ec(const float temperature, const float ec, const bool relay_state);
   void display_calibration_ph(const uint8_t sample, const float temperature);
   void display_calibration_ec(const double sample, uint8_t position, const float temperature);
   void display_change_ph_range(const double sample, uint8_t position);

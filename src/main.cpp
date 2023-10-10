@@ -60,7 +60,6 @@ void ds_thermometer_init()
   m_one_wire.reset_search();
   while (m_one_wire.search(m_ds_address))
   {
-    // TODO: remove magic number
     if (m_ds_address[0] != 0x28)
       continue;
 
@@ -85,7 +84,7 @@ void measurements_ph(const Buttons_action action)
   int analog_mes = analogRead(Config::ph_pin_probe);
   float ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
-  m_data_presentation.presentation_measurements_ph(temperature, ph);
+  m_data_presentation.presentation_measurements_ph(temperature, ph, false);
 
   digitalWrite(Config::ph_supply_pin_probe, LOW);
   digitalWrite(Config::ec_supply_pin_probe, HIGH);
@@ -95,7 +94,6 @@ void measurements_ph(const Buttons_action action)
 
   if (m_automation.check_ec_value(ec))
   {
-    m_data_presentation.display_fill_ec_mode();
     m_automation.turn_on_fill_ec();
     m_device_state = Device_state::fill_ec;
   }
@@ -103,7 +101,6 @@ void measurements_ph(const Buttons_action action)
   {
     digitalWrite(Config::ph_supply_pin_probe, HIGH);
     digitalWrite(Config::ec_supply_pin_probe, LOW);
-    m_data_presentation.display_fill_ph_mode();
     m_automation.turn_on_fill_ph();
     m_device_state = Device_state::fill_ph;
   }
@@ -158,11 +155,10 @@ void measurements_ec(const Buttons_action action)
   analog_mes = analogRead(Config::ph_pin_probe);
   float ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
-  m_data_presentation.presentation_measurements_ec(temperature, ec);
+  m_data_presentation.presentation_measurements_ec(temperature, ec, false);
 
   if (m_automation.check_ec_value(ec))
   {
-    m_data_presentation.display_fill_ec_mode();
     m_automation.turn_on_fill_ec();
     m_device_state = Device_state::fill_ec;
   }
@@ -170,7 +166,6 @@ void measurements_ec(const Buttons_action action)
   {
     digitalWrite(Config::ph_supply_pin_probe, HIGH);
     digitalWrite(Config::ec_supply_pin_probe, LOW);
-    m_data_presentation.display_fill_ph_mode();
     m_automation.turn_on_fill_ph();
     m_device_state = Device_state::fill_ph;
   }
@@ -452,7 +447,7 @@ void fill_ph()
   auto temperature = m_ds_sensor.getTempC();
   auto analog_mes = analogRead(Config::ph_pin_probe);
   auto ph = ph_probe_characteristic.find_unit_val(analog_mes);
-  m_data_presentation.presentation_measurements_ph(temperature, ph);
+  m_data_presentation.presentation_measurements_ph(temperature, ph, true);
 
   if (!m_automation.check_ph_value(ph))
   {
@@ -469,7 +464,7 @@ void fill_ec()
   auto temperature = m_ds_sensor.getTempC();
   auto analog_mes = analogRead(Config::ec_pin_probe);
   auto ec = ec_probe_characteristic.find_unit_val(analog_mes);
-  m_data_presentation.presentation_measurements_ec(temperature, ec);
+  m_data_presentation.presentation_measurements_ec(temperature, ec, true);
 
   if (!m_automation.check_ec_value(ec))
   {
