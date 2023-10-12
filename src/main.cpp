@@ -493,25 +493,11 @@ void setup()
 
   Point points[2];
   m_memory.load_ph_calibration(points);
-  Serial.println("Calibration:");
-  Serial.print("ph: p1_x:");
-  Serial.print(points[0].unit_val);
-  Serial.print(" p1_y:");
-  Serial.print(points[0].analog_val);
-  Serial.print(" p2_x:");
-  Serial.print(points[1].unit_val);
-  Serial.print(" p2_y:");
-  Serial.println(points[1].analog_val);
+  m_data_presentation.print_ph_calibration(points);
   ph_probe_characteristic.set_points(points);
+
   m_memory.load_ec_calibration(points);
-  Serial.print("ec: p1_x:");
-  Serial.print(points[0].unit_val);
-  Serial.print(" p1_y:");
-  Serial.print(points[0].analog_val);
-  Serial.print(" p2_x:");
-  Serial.print(points[1].unit_val);
-  Serial.print(" p2_y:");
-  Serial.println(points[1].analog_val);
+  m_data_presentation.print_ec_calibration(points);
   ec_probe_characteristic.set_points(points);
 
   m_up_button_pressed = false;

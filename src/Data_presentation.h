@@ -6,6 +6,7 @@
  */
 #pragma once
 
+#include "Linear_function.h"
 #include "Screen_lcd.h"
 
 #include <stdint.h>
@@ -22,7 +23,13 @@ class Data_presentation
   void display_calibration_ph(const uint8_t sample, const float temperature);
   void display_calibration_ec(const double sample, uint8_t position, const float temperature);
   void display_change_ph_range(const double sample, uint8_t position);
+  void print_ph_calibration(Point points[2]);
+  void print_ec_calibration(Point points[2]);
+  void print_max_ph(const double value);
+  void print_max_ec(const double value);
 
   private:
+  void print_points(Point points[2]);
+
   Screen_lcd m_display; ///< lcd screen
 };

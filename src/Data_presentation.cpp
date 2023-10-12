@@ -111,7 +111,64 @@ void Data_presentation::display_calibration_ec(const double sample, uint8_t posi
   m_display.calibration_ec(sample, position, temperature);
 }
 
+/**
+ * @brief ph calibration screen
+ * @param sample: ph value current calibrating
+ * @param position: toggling digit position
+ */
 void Data_presentation::display_change_ph_range(const double sample, uint8_t position)
 {
   m_display.change_ph_range(sample, position);
+}
+
+/**
+ * @brief print on serial port ph calibration points
+ * @param points calibration points
+ */
+void Data_presentation::print_ph_calibration(Point points[2])
+{
+  Serial.print("pH :");
+  print_points(points);
+}
+
+/**
+ * @brief print on serial port ec calibration points
+ * @param points calibration points
+ */
+void Data_presentation::print_ec_calibration(Point points[2])
+{
+  Serial.print("EC :");
+  print_points(points);
+}
+
+/**
+ * @brief print max ph value for automation
+ * @param value max ph value
+ */
+void Data_presentation::print_max_ph(const double value)
+{
+  Serial.print("max ph:");
+  Serial.println(value);
+}
+
+/**
+ * @brief print max ec value for automation
+ * @param value max ec value
+ */
+void Data_presentation::print_max_ec(const double value)
+{
+  Serial.print("max ec:");
+  Serial.println(value);
+}
+
+void Data_presentation::print_points(Point points[2])
+{
+  Serial.print("analog_val 1:");
+  Serial.print(points[0].analog_val);
+  Serial.print(" unit_val 1:");
+  Serial.print(points[0].unit_val);
+  Serial.print(" analog_val 2:");
+  Serial.print(points[1].analog_val);
+  Serial.print(" unit_val 2:");
+  Serial.println(points[1].unit_val);
 }
