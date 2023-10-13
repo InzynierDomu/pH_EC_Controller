@@ -522,8 +522,13 @@ void setup()
   //   Serial.println("SD card is present");
   // }
 
-  m_automation.set_min_ph(m_memory.load_ph_max());
-  m_automation.set_min_ec(m_memory.load_ec_max());
+  auto max_val = m_memory.load_ph_max();
+  m_automation.set_min_ph(max_val);
+  m_data_presentation.print_max_ph(max_val);
+
+  max_val = m_memory.load_ec_max();
+  m_automation.set_min_ec(max_val);
+  m_data_presentation.print_max_ec(max_val);
 }
 
 /**
