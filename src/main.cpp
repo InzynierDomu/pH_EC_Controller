@@ -76,21 +76,20 @@ void ds_thermometer_init()
  */
 void measurements_ph(const Buttons_action action)
 {
-  float temperature = m_ds_sensor.getTempC();
+  auto temperature = m_ds_sensor.getTempC();
 
   digitalWrite(Config::ph_supply_pin_probe, HIGH);
   digitalWrite(Config::ec_supply_pin_probe, LOW);
   delay(50);
-  int analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
-
+  auto analog_mes = analogRead(Config::ph_pin_probe);
+  auto ph = ph_probe_characteristic.find_unit_val(analog_mes);
   m_data_presentation.presentation_measurements_ph(temperature, ph, false);
 
   digitalWrite(Config::ph_supply_pin_probe, LOW);
   digitalWrite(Config::ec_supply_pin_probe, HIGH);
   delay(50);
   analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
+  auto ec = ec_probe_characteristic.find_unit_val(analog_mes);
 
   if (m_automation.check_ec_value(ec))
   {

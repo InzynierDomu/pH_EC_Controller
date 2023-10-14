@@ -10,6 +10,7 @@
 
 #include <EEPROM.h>
 
+/// @brief saving and reading calibration from eeprom
 class Calibration_data_memory
 {
   public:
