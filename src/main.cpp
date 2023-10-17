@@ -339,7 +339,7 @@ void calibration_ec(const Buttons_action action)
  */
 void change_ph_range(const Buttons_action action)
 {
-  static double sample = 4.0;
+  static double sample = m_memory.load_ph_max();
   static uint8_t position = 0;
 
   float temperature = m_ds_sensor.getTempC();
@@ -389,7 +389,7 @@ void change_ph_range(const Buttons_action action)
  */
 void change_ec_range(const Buttons_action action)
 {
-  static double sample = 4.0;
+  static double sample = m_memory.load_ec_max();
   static uint8_t position = 0;
 
   float temperature = m_ds_sensor.getTempC();
