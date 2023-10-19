@@ -18,7 +18,8 @@
 Automation::Automation(const double min_ph, const double min_ec)
 : m_min_ph(min_ph)
 , m_min_ec(min_ec)
-, m_disable(false)
+, m_disable_ph(false)
+, m_disable_ec(false)
 {}
 
 /**
@@ -46,7 +47,7 @@ void Automation::set_min_ec(const double min_ec)
  */
 bool Automation::check_ph_value(const double value)
 {
-  if (m_disable)
+  if (m_disable_ph)
   {
     return false;
   }
@@ -65,7 +66,7 @@ bool Automation::check_ph_value(const double value)
  */
 bool Automation::check_ec_value(const double value)
 {
-  if (m_disable)
+  if (m_disable_ec)
   {
     return false;
   }
@@ -77,14 +78,30 @@ bool Automation::check_ec_value(const double value)
   return false;
 }
 
-void Automation::disable()
+void Automation::disable(Probe type)
 {
-  m_disable = true;
+  switch (type)
+  {
+  case Probe::ph:
+    m_disable_ph = true;
+    break;
+  case Probe::ec:
+    m_disable_ec = true;
+    break;
+  }
 }
 
-void Automation::enable()
+void Automation::enable(Probe type)
 {
-  m_disable = false;
+  switch (type)
+  {
+  case Probe::ph:
+    m_disable_ph = false;
+    break;
+  case Probe::ec:
+    m_disable_ec = false;
+    break;
+  }
 }
 
 void Automation::turn_on_fill_ph()

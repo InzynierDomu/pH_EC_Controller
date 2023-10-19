@@ -7,6 +7,11 @@
 
 #pragma once
 
+enum class Probe
+{
+  ph,
+  ec
+};
 class Automation
 {
   public:
@@ -15,8 +20,8 @@ class Automation
   void set_min_ec(const double min_ec);
   bool check_ph_value(const double value);
   bool check_ec_value(const double value);
-  void disable();
-  void enable();
+  void disable(Probe type);
+  void enable(Probe type);
   void turn_on_fill_ph();
   void turn_on_fill_ec();
   void turn_off_fill_ph();
@@ -25,5 +30,6 @@ class Automation
   private:
   double m_min_ph; ///< minimal correct ph level
   double m_min_ec; ///< minimal correct ec level
-  bool m_disable;
+  bool m_disable_ph;
+  bool m_disable_ec;
 };

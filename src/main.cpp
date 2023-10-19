@@ -140,19 +140,19 @@ void measurements_ph(const Buttons_action action)
  */
 void measurements_ec(const Buttons_action action)
 {
-  float temperature = m_ds_sensor.getTempC();
+  auto temperature = m_ds_sensor.getTempC();
 
   digitalWrite(Config::ph_supply_pin_probe, LOW);
   digitalWrite(Config::ec_supply_pin_probe, HIGH);
   delay(50);
-  int analog_mes = analogRead(Config::ec_pin_probe);
-  float ec = ec_probe_characteristic.find_unit_val(analog_mes);
+  auto analog_mes = analogRead(Config::ec_pin_probe);
+  auto ec = ec_probe_characteristic.find_unit_val(analog_mes);
 
   digitalWrite(Config::ph_supply_pin_probe, HIGH);
   digitalWrite(Config::ec_supply_pin_probe, LOW);
   delay(50);
   analog_mes = analogRead(Config::ph_pin_probe);
-  float ph = ph_probe_characteristic.find_unit_val(analog_mes);
+  auto ph = ph_probe_characteristic.find_unit_val(analog_mes);
 
   m_data_presentation.presentation_measurements_ec(temperature, ec, false);
 
@@ -239,7 +239,7 @@ void calibration_ph(const Buttons_action action)
 
   static Point samples[2] = {};
 
-  float temperature = m_ds_sensor.getTempC();
+  auto temperature = m_ds_sensor.getTempC();
 
   switch (action)
   {
@@ -281,7 +281,7 @@ void calibration_ec(const Buttons_action action)
 
   static Point samples[2] = {};
 
-  float temperature = m_ds_sensor.getTempC();
+  auto temperature = m_ds_sensor.getTempC();
 
   switch (action)
   {
@@ -510,7 +510,8 @@ void setup()
   pinMode(Config::pin_right_button, INPUT_PULLUP);
   pinMode(Config::pin_left_button, INPUT_PULLUP);
   pinMode(Config::pin_center_button, INPUT_PULLUP);
-  pinMode(Config::pin_enable_automation, INPUT_PULLUP);
+  pinMode(Config::pin_enable_ec_automation, INPUT_PULLUP);
+  pinMode(Config::pin_enable_ph_automation, INPUT_PULLUP);
   PCICR |= Config::ports_with_interrupt;
   PCMSK2 |= Config::pins_interrupt_D;
 
@@ -548,13 +549,23 @@ void loop()
     delay(100);
   }
 
-  if (digitalRead(Config::pin_enable_automation) == LOW)
+  // TODO: move to automation
+  if (digitalRead(Config::pin_enable_ph_automation) == LOW)
   {
-    m_automation.disable();
+    m_automation.disable(Probe::ph);
   }
   else
   {
-    m_automation.enable();
+    m_automation.enable(Probe::ph);
+  }
+
+  if (digitalRead(Config::pin_enable_ec_automation) == LOW)
+  {
+    m_automation.disable(Probe::ec);
+  }
+  else
+  {
+    m_automation.enable(Probe::ec);
   }
 
   switch (m_device_state)
