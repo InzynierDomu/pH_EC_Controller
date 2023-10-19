@@ -78,47 +78,67 @@ bool Automation::check_ec_value(const double value)
   return false;
 }
 
+/**
+ * @brief disable automation on specific probe
+ * @param tpye probe type
+ */
 void Automation::disable(Probe type)
 {
   switch (type)
   {
-  case Probe::ph:
-    m_disable_ph = true;
-    break;
-  case Probe::ec:
-    m_disable_ec = true;
-    break;
+    case Probe::ph:
+      m_disable_ph = true;
+      break;
+    case Probe::ec:
+      m_disable_ec = true;
+      break;
   }
 }
 
+/**
+ * @brief enable automation on specific probe
+ * @param tpye probe type
+ */
 void Automation::enable(Probe type)
 {
   switch (type)
   {
-  case Probe::ph:
-    m_disable_ph = false;
-    break;
-  case Probe::ec:
-    m_disable_ec = false;
-    break;
+    case Probe::ph:
+      m_disable_ph = false;
+      break;
+    case Probe::ec:
+      m_disable_ec = false;
+      break;
   }
 }
 
+/**
+ * @brief turn on relay to fill ph
+ */
 void Automation::turn_on_fill_ph()
 {
   digitalWrite(Config::pin_ph_relay, HIGH);
 }
 
+/**
+ * @brief turn on relay to fill ec
+ */
 void Automation::turn_on_fill_ec()
 {
   digitalWrite(Config::pin_ec_relay, HIGH);
 }
 
+/**
+ * @brief turn off relay to fill ph
+ */
 void Automation::turn_off_fill_ph()
 {
   digitalWrite(Config::pin_ph_relay, LOW);
 }
 
+/**
+ * @brief turn off relay to fill ec
+ */
 void Automation::turn_off_fill_ec()
 {
   digitalWrite(Config::pin_ec_relay, LOW);
