@@ -19,8 +19,12 @@ This is a more advanced version of the pH EC meter. Performing pH and EC measure
 ## Scheme
 ![schem](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/electrical/Screen.png)
 ### Part list
-
 TBD
+* A1 Arduino Nano
+* U1 ds18b20 temperature sensor
+* J6 is socket for pH board.
+* J7 is socket for EC board.
+* J2 is socket for I2C screen HD44780 via PCF8574. 
 ## IDE
 
 The project is prepared for the Platform IO environment. A video on how to install such an environment can be watched on this [video](https://youtu.be/Em9NuebT2Kc).
