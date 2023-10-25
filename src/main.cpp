@@ -235,7 +235,7 @@ bool save_sample(Point* samples, double sample)
  */
 void calibration_ph(const Buttons_action action)
 {
-  static auto sample = []() {
+  static double sample = []() {
     Point points[2];
     m_memory.load_ph_calibration(points);
     return points[0].unit_val;
@@ -256,9 +256,11 @@ void calibration_ph(const Buttons_action action)
         sample = samples[1].unit_val;
         m_device_state = Device_state::display_measure_ph;
       };
-      Point points[2];
-      m_memory.load_ph_calibration(points);
-      sample = points[1].unit_val;
+      sample = []() {
+        Point points[2];
+        m_memory.load_ph_calibration(points);
+        return points[1].unit_val;
+      }();
       break;
     case Buttons_action::down_pressed:
       if (sample > 1)
@@ -307,9 +309,11 @@ void calibration_ec(const Buttons_action action)
         sample = samples[1].unit_val;
         m_device_state = Device_state::display_measure_ec;
       }
-      Point points[2];
-      m_memory.load_ec_calibration(points);
-      sample = points[1].unit_val;
+      sample = []() {
+        Point points[2];
+        m_memory.load_ec_calibration(points);
+        return points[1].unit_val;
+      }();
       break;
     case Buttons_action::down_pressed:
       // FIXME: min value
