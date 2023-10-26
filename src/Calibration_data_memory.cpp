@@ -10,8 +10,8 @@ enum memory_map
 {
   ph_calibration = 0,
   ec_calibration = 4,
-  ph_max = 8,
-  ec_max = 9
+  ph_min = 8,
+  ec_min = 9
 };
 
 /**
@@ -33,21 +33,21 @@ void Calibration_data_memory::save_ec_calibration(const Point points[2])
 }
 
 /**
- * @brief save ph max value for automation
+ * @brief save ph min value for automation
  * @param value ph value
  */
-void Calibration_data_memory::save_ph_max(const double value)
+void Calibration_data_memory::save_ph_min(const double value)
 {
-  EEPROM.put<double>(sizeof(double) * memory_map::ph_max, value);
+  EEPROM.put<double>(sizeof(double) * memory_map::ph_min, value);
 }
 
 /**
- * @brief save ec max value for automation
+ * @brief save ec min value for automation
  * @param value ec value
  */
-void Calibration_data_memory::save_ec_max(const double value)
+void Calibration_data_memory::save_ec_min(const double value)
 {
-  EEPROM.put<double>(sizeof(double) * memory_map::ec_max, value);
+  EEPROM.put<double>(sizeof(double) * memory_map::ec_min, value);
 }
 
 /**
@@ -69,25 +69,25 @@ void Calibration_data_memory::load_ec_calibration(Point points[2])
 }
 
 /**
- * @brief load ph max value for automation
- * @return max ph value
+ * @brief load ph min value for automation
+ * @return min ph value
  */
-double Calibration_data_memory::load_ph_max()
+double Calibration_data_memory::load_ph_min()
 {
-  double max_ph;
-  EEPROM.get<double>(sizeof(double) * memory_map::ph_max, max_ph);
-  return max_ph;
+  double min_ph;
+  EEPROM.get<double>(sizeof(double) * memory_map::ph_min, min_ph);
+  return min_ph;
 }
 
 /**
- * @brief load ec max value for automation
- * @return max ec value
+ * @brief load ec min value for automation
+ * @return min ec value
  */
-double Calibration_data_memory::load_ec_max()
+double Calibration_data_memory::load_ec_min()
 {
-  double max_ec;
-  EEPROM.get<double>(sizeof(double) * memory_map::ec_max, max_ec);
-  return max_ec;
+  double min_ec;
+  EEPROM.get<double>(sizeof(double) * memory_map::ec_min, min_ec);
+  return min_ec;
 }
 
 void Calibration_data_memory::save_calibration(const Point points[2], const uint8_t start)

@@ -142,22 +142,22 @@ void Data_presentation::print_ec_calibration(Point points[2])
 }
 
 /**
- * @brief print max ph value for automation
- * @param value max ph value
+ * @brief print min ph value for automation
+ * @param value min ph value
  */
-void Data_presentation::print_max_ph(const double value)
+void Data_presentation::print_min_ph(const double value)
 {
-  Serial.print("max ph:");
+  Serial.print("min ph:");
   Serial.println(value);
 }
 
 /**
- * @brief print max ec value for automation
- * @param value max ec value
+ * @brief print min ec value for automation
+ * @param value min ec value
  */
-void Data_presentation::print_max_ec(const double value)
+void Data_presentation::print_min_ec(const double value)
 {
-  Serial.print("max ec:");
+  Serial.print("min ec:");
   Serial.println(value);
 }
 

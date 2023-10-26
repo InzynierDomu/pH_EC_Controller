@@ -79,37 +79,35 @@ bool Automation::check_ec_value(const double value)
 }
 
 /**
- * @brief disable automation on specific probe
- * @param tpye probe type
+ * @brief disable automation on ph
  */
-void Automation::disable(Probe type)
+void Automation::disable_ph()
 {
-  switch (type)
-  {
-    case Probe::ph:
-      m_disable_ph = true;
-      break;
-    case Probe::ec:
-      m_disable_ec = true;
-      break;
-  }
+  m_disable_ph = true;
 }
 
 /**
- * @brief enable automation on specific probe
- * @param tpye probe type
+ * @brief enable automation on ph
  */
-void Automation::enable(Probe type)
+void Automation::enable_ph()
 {
-  switch (type)
-  {
-    case Probe::ph:
-      m_disable_ph = false;
-      break;
-    case Probe::ec:
-      m_disable_ec = false;
-      break;
-  }
+  m_disable_ph = false;
+}
+
+/**
+ * @brief disable automation on ec
+ */
+void Automation::disable_ec()
+{
+  m_disable_ec = true;
+}
+
+/**
+ * @brief enable automation on ec
+ */
+void Automation::enable_ec()
+{
+  m_disable_ec = false;
 }
 
 /**

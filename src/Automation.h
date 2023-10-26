@@ -7,11 +7,6 @@
 
 #pragma once
 
-enum class Probe
-{
-  ph,
-  ec
-};
 class Automation
 {
   public:
@@ -20,8 +15,10 @@ class Automation
   void set_min_ec(const double min_ec);
   bool check_ph_value(const double value);
   bool check_ec_value(const double value);
-  void disable(Probe type);
-  void enable(Probe type);
+  void disable_ph();
+  void enable_ph();
+  void disable_ec();
+  void enable_ec();
   void turn_on_fill_ph();
   void turn_on_fill_ec();
   void turn_off_fill_ph();

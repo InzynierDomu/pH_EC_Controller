@@ -360,7 +360,7 @@ void calibration_ec(const Buttons_action action)
  */
 void change_ph_range(const Buttons_action action)
 {
-  static double sample = m_memory.load_ph_max();
+  static double sample = m_memory.load_ph_min();
   static uint8_t position = 0;
 
   float temperature = m_ds_sensor.getTempC();
@@ -369,7 +369,7 @@ void change_ph_range(const Buttons_action action)
   {
     case Buttons_action::center_pressed:
       m_data_presentation.display_save_data();
-      m_memory.save_ph_max(sample);
+      m_memory.save_ph_min(sample);
       m_automation.set_min_ph(sample);
       m_device_state = Device_state::display_measure_ph;
       break;
@@ -410,7 +410,7 @@ void change_ph_range(const Buttons_action action)
  */
 void change_ec_range(const Buttons_action action)
 {
-  static double sample = m_memory.load_ec_max();
+  static double sample = m_memory.load_ec_min();
   static uint8_t position = 0;
 
   float temperature = m_ds_sensor.getTempC();
@@ -419,7 +419,7 @@ void change_ec_range(const Buttons_action action)
   {
     case Buttons_action::center_pressed:
       m_data_presentation.display_save_data();
-      m_memory.save_ec_max(sample);
+      m_memory.save_ec_min(sample);
       m_automation.set_min_ec(sample);
       m_device_state = Device_state::display_measure_ec;
       break;
@@ -543,13 +543,37 @@ void setup()
   //   Serial.println("SD card is present");
   // }
 
-  auto max_val = m_memory.load_ph_max();
-  m_automation.set_min_ph(max_val);
-  m_data_presentation.print_max_ph(max_val);
+  auto min_val = m_memory.load_ph_min();
+  m_automation.set_min_ph(min_val);
+  m_data_presentation.print_min_ph(min_val);
 
-  max_val = m_memory.load_ec_max();
-  m_automation.set_min_ec(max_val);
-  m_data_presentation.print_max_ec(max_val);
+  min_val = m_memory.load_ec_min();
+  m_automation.set_min_ec(min_val);
+  m_data_presentation.print_min_ec(min_val);
+}
+
+/**
+ * @brief check pin for enable/disable automation
+ */
+void check_automation_enable()
+{
+  if (digitalRead(Config::pin_enable_ph_automation) == LOW)
+  {
+    m_automation.disable_ph();
+  }
+  else
+  {
+    m_automation.enable_ph();
+  }
+
+  if (digitalRead(Config::pin_enable_ec_automation) == LOW)
+  {
+    m_automation.disable_ec();
+  }
+  else
+  {
+    m_automation.enable_ec();
+  }
 }
 
 /**
@@ -570,24 +594,7 @@ void loop()
     delay(100);
   }
 
-  // TODO: move to automation
-  if (digitalRead(Config::pin_enable_ph_automation) == LOW)
-  {
-    m_automation.disable(Probe::ph);
-  }
-  else
-  {
-    m_automation.enable(Probe::ph);
-  }
-
-  if (digitalRead(Config::pin_enable_ec_automation) == LOW)
-  {
-    m_automation.disable(Probe::ec);
-  }
-  else
-  {
-    m_automation.enable(Probe::ec);
-  }
+  check_automation_enable();
 
   switch (m_device_state)
   {
