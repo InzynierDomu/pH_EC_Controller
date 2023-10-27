@@ -161,6 +161,38 @@ void Data_presentation::print_min_ec(const double value)
   Serial.println(value);
 }
 
+/**
+ * @brief print if diasble ph automation was changed
+ * @param disable disable status
+ */
+void Data_presentation::print_change_disable_ph_automation(const bool disable)
+{
+  if (disable)
+  {
+    Serial.println("ph automation disable");
+  }
+  else
+  {
+    Serial.println("ph automation enable");
+  }
+}
+
+/**
+ * @brief print if diasble ec automation was changed
+ * @param disable disable status
+ */
+void Data_presentation::print_change_disable_ec_automation(const bool disable)
+{
+  if (disable)
+  {
+    Serial.println("ec automation disable");
+  }
+  else
+  {
+    Serial.println("ec automation enable");
+  }
+}
+
 void Data_presentation::print_points(Point points[2])
 {
   Serial.print("analog_val 1:");

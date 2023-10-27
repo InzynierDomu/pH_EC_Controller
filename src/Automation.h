@@ -13,12 +13,12 @@ class Automation
   Automation(const double min_ph = 0, const double min_ec = 0);
   void set_min_ph(const double min_ph);
   void set_min_ec(const double min_ec);
-  bool check_ph_value(const double value);
-  bool check_ec_value(const double value);
-  void disable_ph();
-  void enable_ph();
-  void disable_ec();
-  void enable_ec();
+  bool check_ph_value(const double value) const;
+  bool check_ec_value(const double value) const;
+  void change_disable_ph(const bool disable);
+  bool get_disable_ph_status() const;
+  void change_disable_ec(const bool disable);
+  bool get_disable_ec_status() const;
   void turn_on_fill_ph();
   void turn_on_fill_ec();
   void turn_off_fill_ph();

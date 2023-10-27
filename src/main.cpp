@@ -531,8 +531,8 @@ void setup()
   pinMode(Config::pin_right_button, INPUT_PULLUP);
   pinMode(Config::pin_left_button, INPUT_PULLUP);
   pinMode(Config::pin_center_button, INPUT_PULLUP);
-  pinMode(Config::pin_enable_ec_automation, INPUT_PULLUP);
-  pinMode(Config::pin_enable_ph_automation, INPUT_PULLUP);
+  pinMode(Config::pin_disable_ec_automation, INPUT_PULLUP);
+  pinMode(Config::pin_disable_ph_automation, INPUT_PULLUP);
   PCICR |= Config::ports_with_interrupt;
   PCMSK2 |= Config::pins_interrupt_D;
 
@@ -555,24 +555,28 @@ void setup()
 /**
  * @brief check pin for enable/disable automation
  */
-void check_automation_enable()
+void check_automation_disable()
 {
-  if (digitalRead(Config::pin_enable_ph_automation) == LOW)
+  if (digitalRead(Config::pin_disable_ph_automation) == LOW && !m_automation.get_disable_ph_status())
   {
-    m_automation.disable_ph();
+    m_data_presentation.print_change_disable_ph_automation(true);
+    m_automation.change_disable_ph(true);
   }
-  else
+  else if (digitalRead(Config::pin_disable_ph_automation) == HIGH && m_automation.get_disable_ph_status())
   {
-    m_automation.enable_ph();
+    m_data_presentation.print_change_disable_ph_automation(false);
+    m_automation.change_disable_ph(false);
   }
 
-  if (digitalRead(Config::pin_enable_ec_automation) == LOW)
+  if (digitalRead(Config::pin_disable_ec_automation) == LOW && !m_automation.get_disable_ec_status())
   {
-    m_automation.disable_ec();
+    m_data_presentation.print_change_disable_ec_automation(true);
+    m_automation.change_disable_ec(true);
   }
-  else
+  else if (digitalRead(Config::pin_disable_ec_automation) == HIGH && m_automation.get_disable_ec_status())
   {
-    m_automation.enable_ec();
+    m_data_presentation.print_change_disable_ec_automation(false);
+    m_automation.change_disable_ec(false);
   }
 }
 
@@ -594,7 +598,7 @@ void loop()
     delay(100);
   }
 
-  check_automation_enable();
+  check_automation_disable();
 
   switch (m_device_state)
   {

@@ -27,6 +27,8 @@ class Data_presentation
   void print_ec_calibration(Point points[2]);
   void print_min_ph(const double value);
   void print_min_ec(const double value);
+  void print_change_disable_ph_automation(const bool disable);
+  void print_change_disable_ec_automation(const bool disable);
 
   private:
   void print_points(Point points[2]);

@@ -45,7 +45,7 @@ void Automation::set_min_ec(const double min_ec)
  * @param value ph level
  * @return is ph level is to low
  */
-bool Automation::check_ph_value(const double value)
+bool Automation::check_ph_value(const double value) const
 {
   if (m_disable_ph)
   {
@@ -64,7 +64,7 @@ bool Automation::check_ph_value(const double value)
  * @param value ec level
  * @return is ec level is to low
  */
-bool Automation::check_ec_value(const double value)
+bool Automation::check_ec_value(const double value) const
 {
   if (m_disable_ec)
   {
@@ -80,34 +80,30 @@ bool Automation::check_ec_value(const double value)
 
 /**
  * @brief disable automation on ph
+ * @param disable disable status
  */
-void Automation::disable_ph()
+void Automation::change_disable_ph(const bool disable)
 {
-  m_disable_ph = true;
+  m_disable_ph = disable;
 }
 
-/**
- * @brief enable automation on ph
- */
-void Automation::enable_ph()
+bool Automation::get_disable_ph_status() const
 {
-  m_disable_ph = false;
+  return m_disable_ph;
 }
 
 /**
  * @brief disable automation on ec
+ * @param disable disable status
  */
-void Automation::disable_ec()
+void Automation::change_disable_ec(const bool disable)
 {
-  m_disable_ec = true;
+  m_disable_ec = disable;
 }
 
-/**
- * @brief enable automation on ec
- */
-void Automation::enable_ec()
+bool Automation::get_disable_ec_status() const
 {
-  m_disable_ec = false;
+  return m_disable_ec;
 }
 
 /**

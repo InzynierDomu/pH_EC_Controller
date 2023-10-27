@@ -24,8 +24,8 @@ const uint8_t pin_ph_relay = 11; ///< ph control relay pin
 const uint8_t pin_ec_relay = 12; ///< ec control relay pin
 const uint8_t ph_pin_probe = 15; ///< ph probe pin
 const uint8_t ec_pin_probe = 16; ///< ec probe pin
-const uint8_t pin_enable_ec_automation = 17; ///< enable/disable automation input pin
-const uint8_t pin_enable_ph_automation = 20; ///< enable/disable automation input pin
+const uint8_t pin_disable_ph_automation = 14; ///< enable/disable automation input pin
+const uint8_t pin_disable_ec_automation = 17; ///< enable/disable automation input pin
 
 const uint8_t screen_address = 0x3C; ///< ssd1306 oled screen i2c address
 const uint8_t screen_width = 128; ///< screen width
