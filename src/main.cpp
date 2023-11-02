@@ -93,6 +93,8 @@ void measurements_ph(const Buttons_action action)
 
   if (m_automation.check_ec_value(ec))
   {
+    digitalWrite(Config::ph_supply_pin_probe, LOW);
+    digitalWrite(Config::ec_supply_pin_probe, HIGH);
     m_automation.turn_on_fill_ec();
     m_device_state = Device_state::fill_ec;
   }
@@ -158,6 +160,8 @@ void measurements_ec(const Buttons_action action)
 
   if (m_automation.check_ec_value(ec))
   {
+    digitalWrite(Config::ph_supply_pin_probe, LOW);
+    digitalWrite(Config::ec_supply_pin_probe, HIGH);
     m_automation.turn_on_fill_ec();
     m_device_state = Device_state::fill_ec;
   }
@@ -229,17 +233,20 @@ bool save_sample(Point* samples, double sample)
   return false;
 }
 
+double load_ph_point(uint8_t point)
+{
+  Point points[2];
+  m_memory.load_ph_calibration(points);
+  return points[point].unit_val;
+}
+
 /**
  * @brief state -calibration ph procedure
  * @param action buttons action
  */
 void calibration_ph(const Buttons_action action)
 {
-  static double sample = []() {
-    Point points[2];
-    m_memory.load_ph_calibration(points);
-    return points[0].unit_val;
-  }();
+  static double sample = load_ph_point(0);
 
   static Point samples[2] = {};
 
@@ -253,14 +260,10 @@ void calibration_ph(const Buttons_action action)
       {
         m_memory.save_ph_calibration(samples);
         ph_probe_characteristic.set_points(samples);
-        sample = samples[1].unit_val;
+        sample = samples[0].unit_val;
         m_device_state = Device_state::display_measure_ph;
       };
-      sample = []() {
-        Point points[2];
-        m_memory.load_ph_calibration(points);
-        return points[1].unit_val;
-      }();
+      sample = load_ph_point(1);
       break;
     case Buttons_action::down_pressed:
       if (sample > 1)
@@ -280,17 +283,20 @@ void calibration_ph(const Buttons_action action)
   }
 }
 
+double load_ec_point(uint8_t point)
+{
+  Point points[2];
+  m_memory.load_ec_calibration(points);
+  return points[point].unit_val;
+}
+
 /**
  * @brief state -calibration ec procedure
  * @param action buttons action
  */
 void calibration_ec(const Buttons_action action)
 {
-  static double sample = []() {
-    Point points[2];
-    m_memory.load_ec_calibration(points);
-    return points[0].unit_val;
-  }();
+  static double sample = load_ec_point(0);
 
   static uint8_t position = 0;
 
@@ -306,14 +312,10 @@ void calibration_ec(const Buttons_action action)
       {
         m_memory.save_ec_calibration(samples);
         ec_probe_characteristic.set_points(samples);
-        sample = samples[1].unit_val;
+        sample = samples[0].unit_val;
         m_device_state = Device_state::display_measure_ec;
       }
-      sample = []() {
-        Point points[2];
-        m_memory.load_ec_calibration(points);
-        return points[1].unit_val;
-      }();
+      sample = load_ec_point(1);
       break;
     case Buttons_action::down_pressed:
       // FIXME: min value
@@ -350,9 +352,6 @@ void calibration_ec(const Buttons_action action)
       break;
   }
 }
-
-// TODO: try state chart with variant and visit
-// TODO: state as struct/class
 
 /**
  * @brief state -change ph range for automation
