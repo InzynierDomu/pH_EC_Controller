@@ -25,6 +25,16 @@ TBD
 * J6 is socket for pH board.
 * J7 is socket for EC board.
 * J2 is socket for I2C screen HD44780 via PCF8574. 
+* J5 is socket for SD card
+* R2, R3 100k ohm resistors
+* R1, R4, R5 4,7k ohm resistors
+* Q1, Q2 2N700 N-channel MOSFETs
+* Q3, Q4 BC547 NPN bipolar transistor
+* K1, K2 relays 12VDC coil
+* SW1 - SW6 micro switches
+* D1, D2 1N4007 diodes
+* Connectors etc. 
+
 ## IDE
 
 The project is prepared for the Platform IO environment. A video on how to install such an environment can be watched on this [video](https://youtu.be/Em9NuebT2Kc).
