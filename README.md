@@ -16,6 +16,7 @@
 ## Description
 
 This is a more advanced version of the pH EC meter. Performing pH and EC measurements then turns on/off the relays depending on the level of measurements. It is used to automate the process of stabilization the target value pH and EC.
+![photo](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/example_hw.jpg)
 ## Scheme
 ![schem](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/electrical/Screen.png)
 Scheme prepared in kicad.
