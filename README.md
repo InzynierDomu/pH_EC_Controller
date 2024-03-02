@@ -18,8 +18,8 @@
 This is a more advanced version of the pH EC meter. Performing pH and EC measurements then turns on/off the relays depending on the level of measurements. It is used to automate the process of stabilization the target value pH and EC.
 ## Scheme
 ![schem](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/electrical/Screen.png)
+Scheme prepared in kicad.
 ### Part list
-TBD
 * A1 Arduino Nano
 * U1 ds18b20 temperature sensor
 * J6 is socket for pH board.
@@ -31,7 +31,8 @@ TBD
 * Q1, Q2 2N700 N-channel MOSFETs
 * Q3, Q4 BC547 NPN bipolar transistor
 * K1, K2 relays 12VDC coil
-* SW1 - SW6 micro switches
+* SW1 - SW2, SW4 - SW6 micro switches
+* SW3 switch
 * D1, D2 1N4007 diodes
 * Connectors etc. 
 
