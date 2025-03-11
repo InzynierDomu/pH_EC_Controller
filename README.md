@@ -5,7 +5,6 @@
 <a href="https://inzynierdomu.github.io/pH_EC_Controller/">![GitHub docs deployments](https://img.shields.io/github/deployments/InzynierDomu/pH_EC_Controller/github-pages?label=docs&logo=BookStack&logoColor=white&style=flat-square)</a>
 <a href="https://discord.gg/KmW6mHdg">![Discord](https://img.shields.io/discord/815929748882587688?logo=discord&logoColor=green&style=flat-square)</a>
 ![GitHub](https://img.shields.io/github/license/InzynierDomu/PhECMeter?style=flat-square)
-<a href="https://tipo.live/p/inzynierdomu">![support](https://img.shields.io/badge/support-tipo.live-yellow?style=flat-square)</a>
 
 - [pH\_EC\_Controller](#ph_ec_controller)
   - [Description](#description)
@@ -16,6 +15,13 @@
 ## Description
 
 This is a more advanced version of the pH EC meter. Performing pH and EC measurements then turns on/off the relays depending on the level of measurements. It is used to automate the process of stabilization the target value pH and EC.
+
+<div align="center">
+<h2>Support</h2>
+
+<p>If any of my projects have helped you in your work, studies, or simply made your day better, you can buy me a coffee. <a href="https://buycoffee.to/inzynier-domu" target="_blank"><img src="https://buycoffee.to/img/share-button-primary.png" style="width: 195px; height: 51px" alt="Postaw mi kawę na buycoffee.to"></a></p>
+</div>
+
 ![photo](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/example_hw.jpg)
 ## Scheme
 ![schem](https://github.com/InzynierDomu/pH_EC_Controller/blob/main/schems/electrical/Screen.png)
